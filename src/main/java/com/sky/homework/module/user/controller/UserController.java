@@ -7,11 +7,19 @@ import com.sky.homework.module.user.entity.User;
 import com.sky.homework.module.user.service.UserFinderService;
 import com.sky.homework.module.user.service.UserService;
 import com.sky.homework.module.user.service.command.CreateUserCommand;
+import com.sky.homework.module.user.service.command.DeleteUserCommand;
+import com.sky.homework.module.user.service.command.UpdateUserCommand;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -27,5 +35,22 @@ public class UserController {
 		final User user = userService.create(
 				new CreateUserCommand(request.email(), request.password(), request.name()));
 		return userMapper.map(user);
+	}
+
+	@PutMapping(value="/{id}")
+	public UserResponse update(@PathVariable UUID id, @RequestBody UpdateUserCommand request) {
+		final User user = userService.update(
+				new UpdateUserCommand(id, request.email(), request.name()));
+		return userMapper.map(user);
+	}
+
+	@GetMapping(value = "/{id}")
+	public UserResponse get(@PathVariable UUID id) {
+		return userMapper.map(userFinderService.getById(id));
+	}
+
+	@DeleteMapping(value = "/{id}")
+	public void delete(@PathVariable UUID id) {
+		userService.delete(new DeleteUserCommand(id));
 	}
 }

@@ -1,4 +1,4 @@
 package com.sky.homework.common.exception;
 
-public class ApiException {
+public abstract class ApiException extends RuntimeException {
 }
