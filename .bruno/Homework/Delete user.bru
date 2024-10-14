@@ -1,0 +1,22 @@
+meta {
+  name: Delete user
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/users/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 
+}
+
+body:json {
+  {
+    "email": "test2@email.cz",
+    "password": "password"
+  }
+}

@@ -1,0 +1,18 @@
+meta {
+  name: Create project
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{baseUrl}}/projects
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "key": "CLV",
+    "name": "Cleevio internal"
+  }
+}

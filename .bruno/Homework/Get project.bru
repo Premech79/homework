@@ -1,0 +1,22 @@
+meta {
+  name: Get project
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/projects/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 86d7a845-690e-4c70-a610-46fc70e300b4
+}
+
+body:json {
+  {
+    "email": "test2@email.cz",
+    "password": "password"
+  }
+}

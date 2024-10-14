@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import java.time.Instant;
-
 @Service
 @RequiredArgsConstructor
 @Validated
@@ -35,6 +33,7 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+	@Transactional
 	public User update(@Valid UpdateUserCommand command) {
 		if (userFinderService.existsByEmail(command.email())) {
 			throw new EmailExistsException();
@@ -47,9 +46,8 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+	@Transactional
 	public void delete(@Valid DeleteUserCommand command) {
-		User user = userFinderService.getById(command.id());
-		user.setDeletedAt(Instant.now());
-		userRepository.save(user);
+		userRepository.delete(userFinderService.getById(command.id()));
 	}
 }

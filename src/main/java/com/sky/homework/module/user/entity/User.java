@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
 import java.util.UUID;
 
 @Table(name = "tb_user")
@@ -26,6 +25,4 @@ public class User {
 	private String password;
 
 	private String name;
-
-	private Instant deletedAt;
 }

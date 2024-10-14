@@ -5,13 +5,11 @@ import com.sky.homework.module.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Validated
 public class UserFinderService {
 
 	private final UserRepository userRepository;

@@ -2,6 +2,7 @@ package com.sky.homework.module.user.controller;
 
 import com.sky.homework.module.user.controller.dto.mapper.UserMapper;
 import com.sky.homework.module.user.controller.dto.request.CreateUserRequest;
+import com.sky.homework.module.user.controller.dto.request.UpdateUserRequest;
 import com.sky.homework.module.user.controller.dto.response.UserResponse;
 import com.sky.homework.module.user.entity.User;
 import com.sky.homework.module.user.service.UserFinderService;
@@ -10,6 +11,7 @@ import com.sky.homework.module.user.service.command.CreateUserCommand;
 import com.sky.homework.module.user.service.command.DeleteUserCommand;
 import com.sky.homework.module.user.service.command.UpdateUserCommand;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
@@ -31,16 +34,16 @@ public class UserController {
 	private final UserMapper userMapper;
 
 	@PostMapping
+	@ResponseStatus(value = HttpStatus.CREATED)
 	public UserResponse create(@RequestBody CreateUserRequest request) {
 		final User user = userService.create(
 				new CreateUserCommand(request.email(), request.password(), request.name()));
 		return userMapper.map(user);
 	}
 
-	@PutMapping(value="/{id}")
-	public UserResponse update(@PathVariable UUID id, @RequestBody UpdateUserCommand request) {
-		final User user = userService.update(
-				new UpdateUserCommand(id, request.email(), request.name()));
+	@PutMapping(value = "/{id}")
+	public UserResponse update(@PathVariable UUID id, @RequestBody UpdateUserRequest request) {
+		final User user = userService.update(new UpdateUserCommand(id, request.email(), request.name()));
 		return userMapper.map(user);
 	}
 
@@ -50,6 +53,7 @@ public class UserController {
 	}
 
 	@DeleteMapping(value = "/{id}")
+	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable UUID id) {
 		userService.delete(new DeleteUserCommand(id));
 	}

@@ -1,6 +1,6 @@
 package com.sky.homework.module.user.controller.dto.request;
 
-public record CreateUserRequest(
+public record UpdateUserRequest(
 
 		String email,
 

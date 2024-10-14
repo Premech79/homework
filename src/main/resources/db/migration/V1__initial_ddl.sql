@@ -13,9 +13,12 @@ CREATE UNIQUE INDEX "aa152fb1737749439313_ui" ON "tb_user" (email);
 CREATE TABLE tb_external_project
 (
     id UUID NOT NULL,
+    key VARCHAR(10) NOT NULL,
     name VARCHAR(120) NOT NULL,
     PRIMARY KEY (id)
 );
+
+CREATE UNIQUE INDEX "62d0b02cc6d24b83ac3a_ui" ON "tb_external_project" (key);
 
 CREATE TABLE tb_user_external_project
 (

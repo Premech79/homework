@@ -6,4 +6,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class UserNotFoundException extends ApiException {
+
+	@Override
+	public String getMessage() {
+		return "User not found";
+	}
+
 }
