@@ -1,12 +1,14 @@
 package com.sky.homework.module.user.controller;
 
 import com.sky.homework.module.user.controller.dto.mapper.UserMapper;
+import com.sky.homework.module.user.controller.dto.request.AssignProjectRequest;
 import com.sky.homework.module.user.controller.dto.request.CreateUserRequest;
 import com.sky.homework.module.user.controller.dto.request.UpdateUserRequest;
 import com.sky.homework.module.user.controller.dto.response.UserResponse;
 import com.sky.homework.module.user.entity.User;
 import com.sky.homework.module.user.service.UserFinderService;
 import com.sky.homework.module.user.service.UserService;
+import com.sky.homework.module.user.service.command.AssignProjectCommand;
 import com.sky.homework.module.user.service.command.CreateUserCommand;
 import com.sky.homework.module.user.service.command.DeleteUserCommand;
 import com.sky.homework.module.user.service.command.UpdateUserCommand;
@@ -56,5 +58,10 @@ public class UserController {
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable UUID id) {
 		userService.delete(new DeleteUserCommand(id));
+	}
+
+	@PostMapping(value = "/{userId}/projects")
+	public UserResponse assignProject(@PathVariable UUID userId, @RequestBody AssignProjectRequest request) {
+		return userMapper.map(userService.assignProject(new AssignProjectCommand(userId, request.projectId())));
 	}
 }

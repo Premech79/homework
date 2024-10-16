@@ -1,7 +1,12 @@
 package com.sky.homework.module.user.service;
 
+import com.sky.homework.common.security.PasswordService;
+import com.sky.homework.module.project.entity.Project;
+import com.sky.homework.module.project.service.ProjectFinderService;
 import com.sky.homework.module.user.entity.User;
 import com.sky.homework.module.user.exception.EmailExistsException;
+import com.sky.homework.module.user.exception.ProjectAlreadyAssignedException;
+import com.sky.homework.module.user.service.command.AssignProjectCommand;
 import com.sky.homework.module.user.service.command.CreateUserCommand;
 import com.sky.homework.module.user.service.command.DeleteUserCommand;
 import com.sky.homework.module.user.service.command.UpdateUserCommand;
@@ -18,6 +23,8 @@ public class UserService {
 
 	private final UserFinderService userFinderService;
 	private final UserRepository userRepository;
+	private final ProjectFinderService projectFinderService;
+	private final PasswordService passwordService;
 
 	@Transactional
 	public User create(@Valid CreateUserCommand command) {
@@ -27,7 +34,7 @@ public class UserService {
 
 		User user = new User();
 		user.setEmail(command.email());
-		user.setPassword(command.password());
+		user.setPassword(passwordService.hashPassword(command.password()));
 		user.setName(command.name());
 
 		return userRepository.save(user);
@@ -49,5 +56,16 @@ public class UserService {
 	@Transactional
 	public void delete(@Valid DeleteUserCommand command) {
 		userRepository.delete(userFinderService.getById(command.id()));
+	}
+
+	@Transactional
+	public User assignProject(@Valid AssignProjectCommand command) {
+		User user = userFinderService.getById(command.userId());
+		Project project = projectFinderService.getById(command.projectId());
+		if (user.getProjects().contains(project)) {
+			throw new ProjectAlreadyAssignedException();
+		}
+		user.getProjects().add(project);
+		return userRepository.save(user);
 	}
 }
