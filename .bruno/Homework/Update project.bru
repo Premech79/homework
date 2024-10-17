@@ -7,16 +7,21 @@ meta {
 put {
   url: {{baseUrl}}/projects/:id
   body: json
-  auth: none
+  auth: basic
 }
 
 params:path {
   id: 86d7a845-690e-4c70-a610-46fc70e300b4
 }
 
+auth:basic {
+  username: admin
+  password: password
+}
+
 body:json {
   {
-    "email": "test2@email.cz",
-    "password": "password"
+    "key": "CLV4",
+    "name": "Cleevio sucks"
   }
 }

@@ -22,7 +22,7 @@ import java.util.UUID;
 public class User {
 
 	@Id
-	private final UUID id = UUID.randomUUID();
+	private UUID id;
 
 	@Column(nullable = false, unique = true, updatable = false)
 	private String email;

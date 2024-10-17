@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Project {
 
 	@Id
-	private UUID id = UUID.randomUUID();
+	private UUID id;
 
 	private String key;
 

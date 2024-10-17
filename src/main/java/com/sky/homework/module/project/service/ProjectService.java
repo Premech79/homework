@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Validated
@@ -25,6 +27,7 @@ public class ProjectService {
 		}
 
 		Project project = new Project();
+		project.setId(UUID.randomUUID());
 		project.setKey(command.key());
 		project.setName(command.name());
 

@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Validated
@@ -33,6 +35,7 @@ public class UserService {
 		}
 
 		User user = new User();
+		user.setId(UUID.randomUUID());
 		user.setEmail(command.email());
 		user.setPassword(passwordService.hashPassword(command.password()));
 		user.setName(command.name());
