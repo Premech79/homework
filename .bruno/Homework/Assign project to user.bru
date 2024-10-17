@@ -7,15 +7,20 @@ meta {
 post {
   url: {{baseUrl}}/users/:userId/projects
   body: json
-  auth: none
+  auth: basic
 }
 
 params:path {
   userId: f81998a9-6f15-446e-b613-fa6bf920d207
 }
 
+auth:basic {
+  username: admin
+  password: password
+}
+
 body:json {
   {
-    "projectId": "20f1c3be-905b-43c3-ae7f-4d4954dedc3b"
+    "projectId": "8f833e24-ac15-4c7c-96a6-8cb275a3ac3c"
   }
 }

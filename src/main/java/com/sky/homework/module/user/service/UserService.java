@@ -12,6 +12,7 @@ import com.sky.homework.module.user.service.command.DeleteUserCommand;
 import com.sky.homework.module.user.service.command.UpdateUserCommand;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Validated
+@Slf4j
 public class UserService {
 
 	private final UserFinderService userFinderService;
@@ -30,6 +32,8 @@ public class UserService {
 
 	@Transactional
 	public User create(@Valid CreateUserCommand command) {
+		log.info("Creating new user");
+
 		if (userFinderService.existsByEmail(command.email())) {
 			throw new EmailExistsException();
 		}

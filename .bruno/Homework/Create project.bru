@@ -7,12 +7,17 @@ meta {
 post {
   url: {{baseUrl}}/projects
   body: json
-  auth: none
+  auth: basic
+}
+
+auth:basic {
+  username: admin
+  password: password
 }
 
 body:json {
   {
-    "key": "CLV",
-    "name": "Cleevio internal"
+    "key": "AAA",
+    "name": "Cleevio second project"
   }
 }
