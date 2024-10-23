@@ -21,9 +21,9 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
 	@Value("${app.user.name}")
-	private final String username;
+	private String username;
 	@Value("${app.user.password}")
-	private final String password;
+	private String password;
 
 	@Bean
 	public UserDetailsService userDetailsService(PasswordEncoder encoder) {

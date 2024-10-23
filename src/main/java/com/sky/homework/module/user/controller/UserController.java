@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -60,7 +61,7 @@ public class UserController {
 		userService.delete(new DeleteUserCommand(id));
 	}
 
-	@PostMapping(value = "/{userId}/projects")
+	@PutMapping(value = "/{userId}/projects/{projectId}")
 	public UserResponse assignProject(@PathVariable UUID userId, @RequestBody AssignProjectRequest request) {
 		return userMapper.map(userService.assignProject(new AssignProjectCommand(userId, request.projectId())));
 	}
